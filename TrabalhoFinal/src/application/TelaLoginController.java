@@ -42,9 +42,12 @@ public class TelaLoginController {
 		String msg = "";
 		
 		Usuario logando = new Usuario();
+		/*
 		logando.setLogin(txtLogin.getText());
 		logando.setSenha(txtSenha.getText());
-		
+		*/
+		logando.setLogin("vlad");
+		logando.setSenha("root");
 		Usuario existente = new Usuario();
 		List<Usuario> listaUsuarios = u.getLista();
 		
@@ -63,11 +66,13 @@ public class TelaLoginController {
 					}else {
 						msg += "!";
 					}
-					JOptionPane.showMessageDialog(null, msg, "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+					//DESCOMENTAR ISSO!! SEPRECISAR
+					//JOptionPane.showMessageDialog(null, msg, "Sucesso", JOptionPane.INFORMATION_MESSAGE);
 					loginValido = true;
 					break;
 				}else {
 					JOptionPane.showMessageDialog(null, "Senha Inválida", "Erro", JOptionPane.ERROR_MESSAGE);
+					break;
 				}
 			}
 		}
@@ -81,6 +86,7 @@ public class TelaLoginController {
 			Pane root = loader.load();
 			
 			TelaPrincipalController controller = (TelaPrincipalController)loader.getController();
+			//controller.initialize();
 			Scene scene = new Scene(root);
 			Stage stage = new Stage();
 			stage.setScene(scene);
