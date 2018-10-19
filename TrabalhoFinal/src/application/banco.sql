@@ -22,15 +22,15 @@ create table ingredientes(
 );
 drop table clientes;
 create table clientes(
-	id int primary key auto_increment,
+	telefone varchar(20) primary key ,
     nome varchar(50), 
     endereco varchar(80),
-    telefone varchar(20)
+    complemento varchar(30),
+    bairro varchar(30),
+    referencia varchar(200),
+    observacoes varchar(200)
 );
 
-insert into clientes (nome, endereco, telefone) values
-	('Vlademir', 'Rua a', '123456789'),
-    ('Nicolas', 'Avenida b', '987654321');
     
 
     

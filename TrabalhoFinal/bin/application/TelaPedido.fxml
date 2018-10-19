@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.TelaPedidoController">
+   <children>
+      <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="300.0">
+         <children>
+            <HBox prefHeight="45.0" prefWidth="200.0">
+               <children>
+                  <Label alignment="CENTER_RIGHT" prefWidth="85.0" text="Telefone:">
+                     <HBox.margin>
+                        <Insets left="5.0" right="5.0" top="18.0" />
+                     </HBox.margin>
+                  </Label>
+                  <TextField fx:id="txtTelefone" prefWidth="200.0">
+                     <HBox.margin>
+                        <Insets top="15.0" />
+                     </HBox.margin>
+                  </TextField>
+               </children>
+            </HBox>
+            <HBox prefHeight="45.0" prefWidth="200.0">
+               <children>
+                  <Label alignment="CENTER_RIGHT" prefWidth="85.0" text="Nome:">
+                     <HBox.margin>
+                        <Insets left="5.0" right="5.0" top="18.0" />
+                     </HBox.margin>
+                  </Label>
+                  <TextField fx:id="txtNome" editable="false" prefWidth="200.0">
+                     <HBox.margin>
+                        <Insets top="15.0" />
+                     </HBox.margin>
+                  </TextField>
+               </children>
+            </HBox>
+            <HBox prefHeight="45.0" prefWidth="200.0">
+               <children>
+                  <Label alignment="CENTER_RIGHT" prefWidth="85.0" text="Endereço:">
+                     <HBox.margin>
+                        <Insets left="5.0" right="5.0" top="18.0" />
+                     </HBox.margin>
+                  </Label>
+                  <TextField fx:id="txtEndereco" editable="false" prefWidth="200.0">
+                     <HBox.margin>
+                        <Insets top="15.0" />
+                     </HBox.margin>
+                  </TextField>
+               </children>
+            </HBox>
+            <HBox prefHeight="45.0" prefWidth="200.0">
+               <children>
+                  <Label alignment="CENTER_RIGHT" prefWidth="85.0" text="Complemento:">
+                     <HBox.margin>
+                        <Insets left="5.0" right="5.0" top="18.0" />
+                     </HBox.margin>
+                  </Label>
+                  <TextField fx:id="txtComplemento" editable="false" prefWidth="200.0">
+                     <HBox.margin>
+                        <Insets top="15.0" />
+                     </HBox.margin>
+                  </TextField>
+               </children>
+            </HBox>
+            <HBox prefHeight="45.0" prefWidth="200.0">
+               <children>
+                  <Label alignment="CENTER_RIGHT" prefWidth="85.0" text="Bairro:">
+                     <HBox.margin>
+                        <Insets left="5.0" right="5.0" top="18.0" />
+                     </HBox.margin>
+                  </Label>
+                  <TextField fx:id="txtBairro" editable="false" prefWidth="200.0">
+                     <HBox.margin>
+                        <Insets top="15.0" />
+                     </HBox.margin>
+                  </TextField>
+               </children>
+            </HBox>
+            <HBox prefHeight="45.0" prefWidth="200.0">
+               <children>
+                  <Label alignment="CENTER_RIGHT" prefWidth="85.0" text="Referência:">
+                     <HBox.margin>
+                        <Insets left="5.0" right="5.0" top="18.0" />
+                     </HBox.margin>
+                  </Label>
+                  <TextField fx:id="txtReferencia" editable="false" prefWidth="200.0">
+                     <HBox.margin>
+                        <Insets top="15.0" />
+                     </HBox.margin>
+                  </TextField>
+               </children>
+            </HBox>
+            <HBox prefHeight="45.0" prefWidth="200.0">
+               <children>
+                  <Label alignment="CENTER_RIGHT" prefWidth="85.0" text="Observações:">
+                     <HBox.margin>
+                        <Insets left="5.0" right="5.0" top="18.0" />
+                     </HBox.margin>
+                  </Label>
+                  <TextField fx:id="txtObs" editable="false" prefWidth="200.0">
+                     <HBox.margin>
+                        <Insets top="15.0" />
+                     </HBox.margin>
+                  </TextField>
+               </children>
+            </HBox>
+            <HBox prefHeight="45.0" prefWidth="200.0">
+               <children>
+                  <CheckBox fx:id="cbxBalcao" mnemonicParsing="false" text="Balcão">
+                     <HBox.margin>
+                        <Insets left="25.0" top="15.0" />
+                     </HBox.margin>
+                  </CheckBox>
+                  <CheckBox fx:id="cbxUsaUmaVez" mnemonicParsing="false" prefHeight="17.0" prefWidth="145.0" text="Usar apenas esta vez">
+                     <HBox.margin>
+                        <Insets left="25.0" top="15.0" />
+                     </HBox.margin>
+                  </CheckBox>
+               </children>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </HBox>
+            <HBox prefHeight="50.0" prefWidth="200.0">
+               <children>
+                  <Button fx:id="btnSalvar" disable="true" mnemonicParsing="false" prefWidth="85.0" text="Salvar">
+                     <HBox.margin>
+                        <Insets left="110.0" top="12.5" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="btnSelecionar" mnemonicParsing="false" prefWidth="85.0" text="Selecionar">
+                     <HBox.margin>
+                        <Insets left="10.0" top="12.0" />
+                     </HBox.margin>
+                  </Button>
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+      <VBox prefHeight="200.0" prefWidth="250.0">
+         <children>
+            <Button fx:id="btnInserirItem" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" text="Inserir item">
+               <VBox.margin>
+                  <Insets left="75.0" top="50.0" />
+               </VBox.margin>
+            </Button>
+            <Label alignment="CENTER" prefWidth="100.0" text="Valor do pedido:">
+               <VBox.margin>
+                  <Insets left="75.0" top="50.0" />
+               </VBox.margin>
+            </Label>
+            <Label fx:id="lblPreco" alignment="CENTER" prefHeight="50.0" prefWidth="100.0" text="R$ 0,00" textAlignment="CENTER">
+               <VBox.margin>
+                  <Insets left="75.0" />
+               </VBox.margin>
+            </Label>
+            <Button fx:id="btnFinalizar" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" text="Finalizar pedido">
+               <VBox.margin>
+                  <Insets left="75.0" top="50.0" />
+               </VBox.margin>
+            </Button>
+         </children></VBox>
+      <VBox prefHeight="200.0" prefWidth="250.0">
+         <children>
+            <TableView fx:id="tblItensPedido" prefHeight="350.0" prefWidth="245.0">
+               <VBox.margin>
+                  <Insets right="5.0" top="25.0" />
+               </VBox.margin>
+            </TableView>
+         </children></VBox>
+   </children>
+</HBox>

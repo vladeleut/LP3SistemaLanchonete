@@ -57,5 +57,18 @@ public class TelaClienteController {
 	private void cancelar() {
 		((Stage)btnCancelar.getScene().getWindow()).close();
 	}
+	
+	
+	public void setInfosIniciais(Cliente c, int editar) {
+		
+		txtTelefone.setText(c.getTelefone());
+		txtNome.setText(c.getNome());
+		txtEndereco.setText(c.getEndereco());
+		txtComplemento.setText(c.getComplemento());
+		txtBairro.setText(c.getBairro());
+		txtReferencia.setText(c.getReferencia());
+		txtObs.setText(c.getObservacoes());
+		
+	}
 
 }

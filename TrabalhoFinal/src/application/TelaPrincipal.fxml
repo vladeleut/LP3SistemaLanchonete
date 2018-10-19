@@ -32,7 +32,38 @@
           </Tab>
           <Tab text="PEDIDOS">
             <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <VBox layoutX="14.0" layoutY="14.0" prefHeight="357.0" prefWidth="545.0">
+                           <children>
+                              <HBox prefHeight="50.0" prefWidth="200.0">
+                                 <children>
+                                    <Label text="Pesquisar:">
+                                       <HBox.margin>
+                                          <Insets left="20.0" right="20.0" top="15.0" />
+                                       </HBox.margin>
+                                    </Label>
+                                    <TextField fx:id="txtPesquisaPedido" prefWidth="250.0">
+                                       <HBox.margin>
+                                          <Insets right="20.0" top="12.0" />
+                                       </HBox.margin>
+                                    </TextField>
+                                    <Button fx:id="btnNovoPedido" mnemonicParsing="false" onAction="#NovoPedido" prefWidth="100.0" text="Novo">
+                                       <HBox.margin>
+                                          <Insets left="10.0" top="12.0" />
+                                       </HBox.margin>
+                                    </Button>
+                                    <Button mnemonicParsing="false" text="A">
+                                       <HBox.margin>
+                                          <Insets left="30.0" top="12.0" />
+                                       </HBox.margin>
+                                    </Button>
+                                 </children>
+                              </HBox>
+                              <TableView fx:id="tblPedidos" prefHeight="308.0" prefWidth="545.0" />
+                           </children>
+                        </VBox>
+                     </children></AnchorPane>
             </content>
           </Tab>
           <Tab text="CLIENTES">
@@ -53,7 +84,7 @@
                                           <Insets right="20.0" top="12.0" />
                                        </HBox.margin>
                                     </TextField>
-                                    <Button fx:id="btnNovo" mnemonicParsing="false" onAction="#chamaNovoCliente" prefWidth="100.0" text="Novo">
+                                    <Button fx:id="btnNovoCliente" mnemonicParsing="false" onAction="#chamaNovoCliente" prefWidth="100.0" text="Novo">
                                        <HBox.margin>
                                           <Insets left="10.0" top="12.0" />
                                        </HBox.margin>
@@ -73,7 +104,38 @@
           </Tab>
           <Tab text="PRODUTOS">
             <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <VBox layoutX="14.0" layoutY="14.0" prefHeight="357.0" prefWidth="545.0">
+                           <children>
+                              <HBox prefHeight="50.0" prefWidth="200.0">
+                                 <children>
+                                    <Label text="Pesquisar:">
+                                       <HBox.margin>
+                                          <Insets left="20.0" right="20.0" top="15.0" />
+                                       </HBox.margin>
+                                    </Label>
+                                    <TextField fx:id="txtPesquisaProduto" prefWidth="250.0">
+                                       <HBox.margin>
+                                          <Insets right="20.0" top="12.0" />
+                                       </HBox.margin>
+                                    </TextField>
+                                    <Button fx:id="btnNovoProduto" mnemonicParsing="false" onAction="#NovoProduto" prefWidth="100.0" text="Novo">
+                                       <HBox.margin>
+                                          <Insets left="10.0" top="12.0" />
+                                       </HBox.margin>
+                                    </Button>
+                                    <Button mnemonicParsing="false" text="A">
+                                       <HBox.margin>
+                                          <Insets left="30.0" top="12.0" />
+                                       </HBox.margin>
+                                    </Button>
+                                 </children>
+                              </HBox>
+                              <TableView fx:id="tblPedidos" prefHeight="308.0" prefWidth="545.0" />
+                           </children>
+                        </VBox>
+                     </children></AnchorPane>
             </content>
           </Tab>
           <Tab text="CONFIGURAÇÕES">
