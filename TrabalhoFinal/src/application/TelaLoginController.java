@@ -13,6 +13,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
@@ -92,6 +93,7 @@ public class TelaLoginController {
 			stage.setScene(scene);
 			stage.setTitle("Principal");
 			stage.show();
+			stage.getIcons().add(new Image(getClass().getResourceAsStream("/images/icone.png")));
 			//stage.setMaximized(true);
 			
 			controller.setInfosIniciais(existente);

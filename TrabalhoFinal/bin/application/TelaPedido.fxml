@@ -146,7 +146,7 @@
       </VBox>
       <VBox prefHeight="200.0" prefWidth="250.0">
          <children>
-            <Button fx:id="btnInserirItem" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" text="Inserir item">
+            <Button fx:id="btnInserirItem" mnemonicParsing="false" onAction="#addItens" prefHeight="50.0" prefWidth="100.0" text="Inserir item">
                <VBox.margin>
                   <Insets left="75.0" top="50.0" />
                </VBox.margin>
@@ -161,7 +161,7 @@
                   <Insets left="75.0" />
                </VBox.margin>
             </Label>
-            <Button fx:id="btnFinalizar" mnemonicParsing="false" prefHeight="50.0" prefWidth="100.0" text="Finalizar pedido">
+            <Button fx:id="btnFinalizar" mnemonicParsing="false" onAction="#pagamento" prefHeight="50.0" prefWidth="100.0" text="Finalizar pedido">
                <VBox.margin>
                   <Insets left="75.0" top="50.0" />
                </VBox.margin>

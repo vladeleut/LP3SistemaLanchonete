@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.VBox?>
+
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.TelaPagamentoController">
+   <children>
+      <Button fx:id="btnFinalizar" mnemonicParsing="false" onAction="#finalizar" prefWidth="70.0" text="Finalizar" textAlignment="CENTER">
+         <VBox.margin>
+            <Insets left="115.0" top="350.0" />
+         </VBox.margin>
+      </Button>
+   </children>
+</VBox>
