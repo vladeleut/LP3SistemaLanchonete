@@ -30,12 +30,12 @@ public class TelaPrincipalController {
 	
 	public void setInfosIniciais(Usuario user) {
 		
-		DateTimeFormatter ts = DateTimeFormatter.ofPattern("dd/mm/yyyy HH:mm");
+		DateTimeFormatter ts = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 		LocalDateTime now = LocalDateTime.now();
 		
 		
 		if(user.getFlagAdmin() == 1) {
-			lblNomeUsuario.setText(lblNomeUsuario.getText() + "(Admin)" + user.getNome().toString());
+			lblNomeUsuario.setText(lblNomeUsuario.getText() + "(Admin) " + user.getNome().toString());
 		}else {
 			lblNomeUsuario.setText(lblNomeUsuario.getText() + user.getNome().toString());
 		}
@@ -44,7 +44,7 @@ public class TelaPrincipalController {
 	}
 	
 	////////////////////////////////////////////////////////
-	/////////////////// ABA PEDIDOS ////////////////////////
+	/////////////////// ABA CAIXA// ////////////////////////
 	////////////////////////////////////////////////////////
 
 	@FXML
@@ -121,8 +121,8 @@ public class TelaPrincipalController {
 		Stage stage = new Stage();
 		stage.setScene(scene);
 		stage.setTitle("Criar novo cliente");
-		//stage.initModality(Modality.WINDOW_MODAL);
-		//stage.initOwner( btnNovoCliente.getScene().getWindow() );
+		stage.initModality(Modality.WINDOW_MODAL);
+		stage.initOwner( lblPesquisa.getScene().getWindow() );
 		stage.showAndWait();
 		
 	}
@@ -173,8 +173,10 @@ public class TelaPrincipalController {
 		Scene scene = new Scene(root);
 		Stage stage = new Stage();
 		stage.setScene(scene);
-		stage.setTitle("Novo cliente");
-		stage.show();
+		stage.setTitle("Novo Pedido");
+		stage.initModality(Modality.WINDOW_MODAL);
+		stage.initOwner( btnNovoPedido.getScene().getWindow() );
+		stage.showAndWait();
 		
 		
 	}
@@ -203,9 +205,10 @@ public class TelaPrincipalController {
 		Scene scene = new Scene(root);
 		Stage stage = new Stage();
 		stage.setScene(scene);
-		stage.setTitle("Novo cliente");
-		stage.show();
-		
+		stage.setTitle("Novo Produto");
+		stage.initModality(Modality.WINDOW_MODAL);
+		stage.initOwner( btnNovoProduto.getScene().getWindow() );
+		stage.showAndWait();
 		
 	}
 	

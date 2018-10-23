@@ -40,7 +40,7 @@
       </HBox>
       <HBox prefHeight="50.0" prefWidth="200.0">
          <children>
-            <Button fx:id="btnEntrar" mnemonicParsing="false" onAction="#entrar" prefWidth="75.0" text="Entrar">
+            <Button fx:id="btnEntrar" mnemonicParsing="false" onAction="#fazerLogin" prefWidth="75.0" text="Entrar">
                <HBox.margin>
                   <Insets left="165.0" top="15.0" />
                </HBox.margin>

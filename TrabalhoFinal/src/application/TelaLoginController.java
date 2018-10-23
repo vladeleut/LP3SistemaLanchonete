@@ -1,5 +1,6 @@
 package application;
 
+import java.awt.HeadlessException;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
@@ -35,6 +36,63 @@ public class TelaLoginController {
 	public void fechar() {
 		System.exit(0);
 	}
+
+	@FXML
+	public void fazerLogin() throws IOException, HeadlessException, SQLException {
+		UsuarioDAO u = new UsuarioDAO();
+		
+		if(u.fazLogin(txtLogin.getText(), txtSenha.getText())) {
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("TelaPrincipal.fxml"));
+			Pane root = loader.load();
+			
+			TelaPrincipalController controller = (TelaPrincipalController)loader.getController();
+			//controller.initialize();
+			Scene scene = new Scene(root);
+			Stage stage = new Stage();
+			stage.setScene(scene);
+			stage.setTitle("Principal");
+			stage.show();
+			stage.getIcons().add(new Image(getClass().getResourceAsStream("/images/icone.png")));
+			//stage.setMaximized(true);
+			stage.setResizable(false);
+			
+			Usuario logado = u.usuarioPorLogin(txtLogin.getText());
+
+			controller.setInfosIniciais(logado);
+			
+			//slide 40 aula 17 exemplo
+			((Stage)btnEntrar.getScene().getWindow()).close();
+		}else {
+			System.out.println("Não deu Certo");
+		}
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	@FXML
 	public void entrar() throws SQLException, IOException {
@@ -95,6 +153,7 @@ public class TelaLoginController {
 			stage.show();
 			stage.getIcons().add(new Image(getClass().getResourceAsStream("/images/icone.png")));
 			//stage.setMaximized(true);
+			stage.setResizable(false);
 			
 			controller.setInfosIniciais(existente);
 			
@@ -104,7 +163,5 @@ public class TelaLoginController {
 		}
 		
 	}
-	
-	
 
 }
