@@ -68,6 +68,14 @@ public class UsuarioDAO {
 		
 		String senhaBanco = "";
 		
+		if(login.equals("")) {
+			JOptionPane.showMessageDialog(null, "Digite um usuário!", "Erro", JOptionPane.ERROR_MESSAGE);
+			return false;
+		}else if(senha.equals("")) {
+			JOptionPane.showMessageDialog(null, "Digite uma senha!", "Erro", JOptionPane.ERROR_MESSAGE);
+			return false;
+		}
+		
 		if(verificaLogin(login)) {
 			
 			String qry = "SELECT senha FROM sist_usuario WHERE login = ?";
@@ -82,7 +90,6 @@ public class UsuarioDAO {
 			rs.close();
 			stmt.close();
 			
-			
 			if(senha.equals(senhaBanco)) {
 				return true;
 			}else {
@@ -94,8 +101,6 @@ public class UsuarioDAO {
 			JOptionPane.showMessageDialog(null, "Usuário Não encontrado!", "Erro", JOptionPane.ERROR_MESSAGE);
 			return false;
 		}
-		
-		
 	}
 
 	public Usuario usuarioPorLogin(String login) throws SQLException {

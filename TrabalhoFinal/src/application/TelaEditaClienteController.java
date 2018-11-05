@@ -5,7 +5,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-public class TelaClienteController {
+public class TelaEditaClienteController {
 	
 	@FXML
 	private TextField txtTelefone;
@@ -34,8 +34,29 @@ public class TelaClienteController {
 	@FXML
 	private Button btnCancelar;
 	
+	private String txtTelAntigo = "";
+	
+	ClienteDAO c = new ClienteDAO();
+	
 	@FXML
-	private void gravar() {
+	private void cancelar() {
+		((Stage)btnCancelar.getScene().getWindow()).close();
+	}
+	
+	public void setInfosIniciais(Cliente c) {
+		
+		txtTelefone.setText(c.getTelefone());
+		txtNome.setText(c.getNome());
+		txtEndereco.setText(c.getEndereco());
+		txtComplemento.setText(c.getComplemento());
+		txtBairro.setText(c.getBairro());
+		txtReferencia.setText(c.getReferencia());
+		txtObs.setText(c.getObservacoes());
+		
+		txtTelAntigo = c.getTelefone();
+	}
+	
+	public void AtualizaCliente() {
 		Cliente cli = new Cliente();
 		cli.setTelefone(txtTelefone.getText());
 		cli.setNome(txtNome.getText());
@@ -45,17 +66,7 @@ public class TelaClienteController {
 		cli.setReferencia(txtReferencia.getText());
 		cli.setObservacoes(txtObs.getText());
 		
-		ClienteDAO c = new ClienteDAO();
-		c.insereCliente(cli);
-		//confirmar?
-		
-		
-		((Stage)btnCancelar.getScene().getWindow()).close();
+		c.atualizaClientePorTelefone(cli, txtTelAntigo);
 	}
-	
-	@FXML
-	private void cancelar() {
-		((Stage)btnCancelar.getScene().getWindow()).close();
-	}
-	
+
 }

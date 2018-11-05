@@ -15,12 +15,12 @@ insert into sist_usuario (login, senha, nome, isAdmin) values
     
 select * from sist_usuario;
 
-create table ingredientes(
+create table ingrediente(
 	id int primary key,
-	ingrediente varchar(50),
+	nome varchar(50),
     preco double
 );
-drop table clientes;
+
 create table clientes(
 	telefone varchar(20) primary key ,
     nome varchar(50), 
@@ -30,7 +30,18 @@ create table clientes(
     referencia varchar(200),
     observacoes varchar(200)
 );
+select count(*) from sist_usuario where login = 'vijrekwjfdsklad';
 
-    
+create table produto(
+	id int primary key, 
+    nome varchar(30),
+    preco double
+);
 
-    
+create table produto_ingrediente(
+    id_prod int, 
+    id_ing int,
+    constraint foreign key id_prod_fk (id_prod) references produto(id),
+    constraint foreign key id_ing_fk(id_ing) references ingrediente(id),
+    constraint primary key prod_ing_pk (id_prod, id_ing)
+);

@@ -3,18 +3,22 @@ package application;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.Callback;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -88,6 +92,10 @@ public class TelaPrincipalController {
 		//NÃO PODE FAZER CAST ASSIM
 		//clientes = (ObservableList<Cliente>) c.getLista();
 		
+		TableColumn<Cliente, String> colTelCli = new TableColumn<>("Telefone");
+		colTelCli.setMinWidth(50);
+		colTelCli.setCellValueFactory(new PropertyValueFactory<>("telefone"));
+		
 		TableColumn<Cliente, String> colNomeCli = new TableColumn<>("Nome");
 		colNomeCli.setMinWidth(50);
 		colNomeCli.setCellValueFactory(new PropertyValueFactory<>("nome"));
@@ -96,14 +104,63 @@ public class TelaPrincipalController {
 		colEndCli.setMinWidth(100);
 		colEndCli.setCellValueFactory(new PropertyValueFactory<>("endereco"));
 		
-		TableColumn<Cliente, String> colTelCli = new TableColumn<>("Telefone");
-		colTelCli.setMinWidth(50);
-		colTelCli.setCellValueFactory(new PropertyValueFactory<>("telefone"));
+		TableColumn<Cliente, String> colComplCli = new TableColumn<>("Complemento");
+		colComplCli.setMinWidth(100);
+		colComplCli.setCellValueFactory(new PropertyValueFactory<>("complemento"));
+		
+		TableColumn<Cliente, String> colBairroCli = new TableColumn<>("Bairro");
+		colBairroCli.setMinWidth(100);
+		colBairroCli.setCellValueFactory(new PropertyValueFactory<>("bairro"));
+		
+		TableColumn<Cliente, String> colRefCli = new TableColumn<>("Referencia");
+		colRefCli.setMinWidth(100);
+		colRefCli.setCellValueFactory(new PropertyValueFactory<>("referencia"));
+		
+		TableColumn<Cliente, String> colObsCli = new TableColumn<>("Observações");
+		colObsCli.setMinWidth(100);
+		colObsCli.setCellValueFactory(new PropertyValueFactory<>("observacoes"));        
+        
+ /////////////TENTATIVA DE BOTÃO DELETAR
+		
+		TableColumn deleteCol = new TableColumn("Apagar");
+        deleteCol.setCellValueFactory(new PropertyValueFactory<>("bairro"));
+        
+        Callback<TableColumn<Cliente, String> , TableCell<Cliente, String>> cellFactory =  new Callback<TableColumn<Cliente, String> , TableCell<Cliente, String>>() {
+    @Override
+    public TableCell call(final TableColumn<Cliente, String> param) {
+        final TableCell<Cliente, String> cell = new TableCell<Cliente, String>() {
+
+            final Button btn = new Button("Just Do It");
+
+            @Override
+            public void updateItem(String item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty) {
+                    setGraphic(null);
+                    setText(null);
+                } else {
+                    btn.setOnAction(event -> {
+                    	ClienteDAO cdao = new ClienteDAO();
+                    	Cliente person = getTableView().getItems().get(getIndex());
+                    	cdao.apagaPorTelefone(person.getTelefone());
+                        
+                        //System.out.println(person.getTelefone()+ "   ");
+                    });
+                    setGraphic(btn);
+                    setText(null);
+                }
+            }
+        };
+        return cell;
+    }
+};
+
+deleteCol.setCellFactory(cellFactory);
+        
+ /////////////FIM TENTATIVA
 		
 		tblClientes.setItems(clientes);
-		tblClientes.getColumns().addAll(colNomeCli, colEndCli, colTelCli);
-		
-		
+		tblClientes.getColumns().addAll(colTelCli, colNomeCli, colEndCli,colComplCli, colBairroCli, colRefCli, colObsCli, deleteCol);
 	}
 	
 	@FXML
@@ -128,26 +185,55 @@ public class TelaPrincipalController {
 	}
 	/*
 	@FXML
-	public void chamaCliente() throws IOException {//chama janela para ccriar cliente
-		
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("TelaCliente.fxml"));
-		Pane root = loader.load();
-		
-		TelaClienteController controller = (TelaClienteController)loader.getController();
-		Scene scene = new Scene(root);
-		Stage stage = new Stage();
-		
-		
-		Cliente c = new Cliente();
-		controller.setInfosIniciais(c, 1);
-		
-		stage.setScene(scene);
-		stage.setTitle("Editar cliente");
-		stage.show();
-		stage.setAlwaysOnTop(true);
+	public void clickItem()
+	{
+	    if (event.getClickCount() == 2) //Checking double click
+	    {
+	        System.out.println(tblClientes.getSelectionModel().getSelectedItem().getTelefone());
+	        System.out.println(event.getClickCount());
+	        /*System.out.println(tableID.getSelectionModel().getSelectedItem().getBrewery());
+	        System.out.println(tableID.getSelectionModel().getSelectedItem().getCountry());
+	    }
+	}*/
+	
+	@FXML
+	public void editarCliente() {
 		
 	}
-	*/
+	
+	@FXML
+	public void chamaCliente(MouseEvent event) throws IOException {//chama janela para ccriar cliente
+
+		String telefone = "";
+
+		if (event.getClickCount() == 2){ 
+			System.out.println(tblClientes.getSelectionModel().getSelectedItem().getTelefone());
+			telefone = tblClientes.getSelectionModel().getSelectedItem().getTelefone();
+			/*System.out.println(tableID.getSelectionModel().getSelectedItem().getBrewery());
+	        System.out.println(tableID.getSelectionModel().getSelectedItem().getCountry());*/
+
+
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("TelaEditaCliente.fxml"));
+			Pane root = loader.load();
+
+			TelaEditaClienteController controller = (TelaEditaClienteController)loader.getController();
+			Scene scene = new Scene(root);
+			Stage stage = new Stage();
+
+
+			Cliente c = new Cliente();
+			ClienteDAO cdao = new ClienteDAO();
+
+			c = cdao.procuraPorTelefone(telefone);
+			controller.setInfosIniciais(c);
+
+			stage.setScene(scene);
+			stage.setTitle("Editar cliente");
+			stage.show();
+			stage.setAlwaysOnTop(true);
+		}
+	}
+	
 	
 	
 ////////////////////////////////////////////////////////

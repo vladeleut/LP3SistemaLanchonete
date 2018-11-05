@@ -41,6 +41,9 @@ public class TelaLoginController {
 	public void fazerLogin() throws IOException, HeadlessException, SQLException {
 		UsuarioDAO u = new UsuarioDAO();
 		
+		txtLogin.setText("vlad");
+		txtSenha.setText("root");
+		
 		if(u.fazLogin(txtLogin.getText(), txtSenha.getText())) {
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("TelaPrincipal.fxml"));
 			Pane root = loader.load();

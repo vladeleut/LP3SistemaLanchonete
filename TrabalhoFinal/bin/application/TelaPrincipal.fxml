@@ -122,7 +122,7 @@
                                     </Button>
                                  </children>
                               </HBox>
-                              <TableView fx:id="tblClientes" prefHeight="409.0" prefWidth="534.0" />
+                              <TableView fx:id="tblClientes" onMouseClicked="#chamaCliente" prefHeight="409.0" prefWidth="534.0" />
                            </children>
                         </VBox>
                      </children></AnchorPane>
