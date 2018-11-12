@@ -25,14 +25,25 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import javax.swing.JOptionPane;
+
 public class TelaPrincipalController {
+	
+	ClienteDAO c = new ClienteDAO();
+	
 	@FXML
 	private Label lblNomeUsuario;
 	
 	@FXML
 	private Label lblTsLogin;
 	
+	Usuario logado = new Usuario();
+	
 	public void setInfosIniciais(Usuario user) {
+		
+		logado.setLogin(user.getLogin());
+		logado.setNome(user.getNome());
+		logado.setFlagAdmin(user.getFlagAdmin());
 		
 		DateTimeFormatter ts = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 		LocalDateTime now = LocalDateTime.now();
@@ -63,6 +74,30 @@ public class TelaPrincipalController {
 	@FXML
 	private Button btnDiaEquivalente;
 	
+	public void abreCaixa() throws SQLException {
+		CaixaDAO cxdao = new CaixaDAO();
+		cxdao.abreCaixa(logado);
+		JOptionPane.showMessageDialog(null, "Caixa Aberto com Sucesso", "Sucesso", JOptionPane.OK_OPTION);
+	}
+	
+	public void fechaCaixa() throws SQLException {
+		CaixaDAO cxdao = new CaixaDAO();
+		cxdao.fechaCaixa();
+		JOptionPane.showMessageDialog(null, "Caixa Fechado com Sucesso", "Sucesso", JOptionPane.OK_OPTION);
+	}
+	
+	public void consultaHistorico() {
+		/*
+		 * abre janela com tabela
+		 * usuario | data abertura | data fechamento | movimentação
+		 * 
+		 * 
+		 * fazer janela
+		 * fazer tabela
+		 * popular
+		 */
+	}
+	
 	
 		
 	////////////////////////////////////////////////////////
@@ -83,11 +118,12 @@ public class TelaPrincipalController {
 	@FXML
 	private Label lblPesquisa;
 	
-	public void initialize() throws SQLException {
-		
-		ClienteDAO c = new ClienteDAO();
-		
-		ObservableList<Cliente> clientes = FXCollections.observableArrayList(c.getLista());
+	
+	public ObservableList<Cliente> clientes;//precisei quebrar para utilizar fora do escopo de initialize
+	
+	
+	public void initializeAux(int refreshing) throws SQLException {
+		clientes = FXCollections.observableArrayList(c.getLista()); // quebrado aqui
 		
 		//NÃO PODE FAZER CAST ASSIM
 		//clientes = (ObservableList<Cliente>) c.getLista();
@@ -120,53 +156,65 @@ public class TelaPrincipalController {
 		colObsCli.setMinWidth(100);
 		colObsCli.setCellValueFactory(new PropertyValueFactory<>("observacoes"));        
         
- /////////////TENTATIVA DE BOTÃO DELETAR
-		
+		/////////////COLOCANDO O BOTÃO DE DELETAR
+
 		TableColumn deleteCol = new TableColumn("Apagar");
-        deleteCol.setCellValueFactory(new PropertyValueFactory<>("bairro"));
-        
-        Callback<TableColumn<Cliente, String> , TableCell<Cliente, String>> cellFactory =  new Callback<TableColumn<Cliente, String> , TableCell<Cliente, String>>() {
-    @Override
-    public TableCell call(final TableColumn<Cliente, String> param) {
-        final TableCell<Cliente, String> cell = new TableCell<Cliente, String>() {
+		deleteCol.setCellValueFactory(new PropertyValueFactory<>("bairro"));
 
-            final Button btn = new Button("Just Do It");
+		Callback<TableColumn<Cliente, String> , TableCell<Cliente, String>> cellFactory =  new Callback<TableColumn<Cliente, String> , TableCell<Cliente, String>>() {
+			@Override
+			public TableCell call(final TableColumn<Cliente, String> param) {
+				final TableCell<Cliente, String> cell = new TableCell<Cliente, String>() {
 
-            @Override
-            public void updateItem(String item, boolean empty) {
-                super.updateItem(item, empty);
-                if (empty) {
-                    setGraphic(null);
-                    setText(null);
-                } else {
-                    btn.setOnAction(event -> {
-                    	ClienteDAO cdao = new ClienteDAO();
-                    	Cliente person = getTableView().getItems().get(getIndex());
-                    	cdao.apagaPorTelefone(person.getTelefone());
-                        
-                        //System.out.println(person.getTelefone()+ "   ");
-                    });
-                    setGraphic(btn);
-                    setText(null);
-                }
-            }
-        };
-        return cell;
-    }
-};
+					final Button btn = new Button("Just Do It");
 
-deleteCol.setCellFactory(cellFactory);
-        
- /////////////FIM TENTATIVA
+					@Override
+					public void updateItem(String item, boolean empty) {
+						super.updateItem(item, empty);
+						if (empty) {
+							setGraphic(null);
+							setText(null);
+						} else {
+							btn.setOnAction(event -> {
+								ClienteDAO cdao = new ClienteDAO();
+								Cliente person = getTableView().getItems().get(getIndex());
+								cdao.apagaPorTelefone(person.getTelefone());
+
+								//System.out.println(person.getTelefone()+ "   ");
+							});
+							setGraphic(btn);
+							setText(null);
+						}
+					}
+				};
+				return cell;
+			}
+		};
+		
+		deleteCol.setCellFactory(cellFactory);
+
+		/////////////FIM DA COLUNA DE BOTÕES, SÓ ADICIONA ELE ABAIXO.
+		
+		if(refreshing == 1) {
+			tblClientes.getColumns().removeAll(colTelCli, colNomeCli, colEndCli,colComplCli, colBairroCli, colRefCli, colObsCli, deleteCol);
+		}
 		
 		tblClientes.setItems(clientes);
 		tblClientes.getColumns().addAll(colTelCli, colNomeCli, colEndCli,colComplCli, colBairroCli, colRefCli, colObsCli, deleteCol);
 	}
 	
-	@FXML
-	public void atualizaTblCliente() {
-		tblClientes.refresh();
+	public void initialize() throws SQLException {
+		
+		initializeAux(1);
+		
 	}
+	
+	@FXML
+	public void atualizaTblCliente() throws SQLException {
+		initializeAux(0);
+	}
+	
+	
 	
 	@FXML
 	public void chamaNovoCliente() throws IOException {//chama janela para ccriar cliente

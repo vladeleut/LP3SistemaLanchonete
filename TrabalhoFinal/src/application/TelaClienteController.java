@@ -1,11 +1,18 @@
 package application;
 
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 public class TelaClienteController {
+	
+	public ObservableList<Cliente> clientes;
+	
+	public void getLista(ObservableList<Cliente> cli) {
+		this.clientes = cli;
+	}
 	
 	@FXML
 	private TextField txtTelefone;
@@ -44,6 +51,8 @@ public class TelaClienteController {
 		cli.setBairro(txtBairro.getText());
 		cli.setReferencia(txtReferencia.getText());
 		cli.setObservacoes(txtObs.getText());
+		
+		
 		
 		ClienteDAO c = new ClienteDAO();
 		c.insereCliente(cli);

@@ -1,6 +1,7 @@
 package application;
 
 public class Usuario {
+	private int id;
 	private String login;
 	private String senha;
 	private String nome;
@@ -29,6 +30,12 @@ public class Usuario {
 	}
 	public void setFlagAdmin(int flagAdmin) {
 		this.flagAdmin = flagAdmin;
+	}
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
 	}
 	
 

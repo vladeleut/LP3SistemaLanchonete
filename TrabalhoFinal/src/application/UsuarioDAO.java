@@ -64,6 +64,8 @@ public class UsuarioDAO {
 		}
 	}
 	
+	
+	
 	public boolean fazLogin(String login, String senha) throws HeadlessException, SQLException {
 		
 		String senhaBanco = "";
@@ -105,7 +107,7 @@ public class UsuarioDAO {
 
 	public Usuario usuarioPorLogin(String login) throws SQLException {
 		
-		String qry = "SELECT senha, nome, isAdmin FROM sist_usuario WHERE login = ?";
+		String qry = "SELECT id, senha, nome, isAdmin FROM sist_usuario WHERE login = ?";
 		PreparedStatement stmt = this.conn.prepareStatement(qry);
 		stmt.setString(1, login);
 		ResultSet rs = stmt.executeQuery();
@@ -114,6 +116,7 @@ public class UsuarioDAO {
 		user.setLogin(login);
 		
 		if(rs.next()) {
+			user.setId(rs.getInt("id"));
 			user.setSenha(rs.getString("senha"));
 			user.setNome(rs.getString("nome"));
 			user.setFlagAdmin(rs.getInt("isAdmin"));

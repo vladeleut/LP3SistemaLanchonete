@@ -45,3 +45,12 @@ create table produto_ingrediente(
     constraint foreign key id_ing_fk(id_ing) references ingrediente(id),
     constraint primary key prod_ing_pk (id_prod, id_ing)
 );
+
+create table caixa(
+	id_sessao int auto_increment not null primary key,
+    id_login int, 
+    hora_abertura datetime,
+    hora_fechamento datetime,
+    movimentacao double,
+    constraint foreign key login_id_fk(id_login) references sist_usuario(id)
+);

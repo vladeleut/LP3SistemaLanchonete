@@ -123,7 +123,21 @@ public class ClienteDAO {
 
 	public void apagaPorTelefone(String telefone) {
 		
-		JOptionPane.showMessageDialog(null, "APAGUEI CLIENTE" + telefone, "Warning", JOptionPane.WARNING_MESSAGE);
+String sql = "DELETE FROM Clientes WHERE telefone = ?";
+		
+		try {
+			PreparedStatement qry = conn.prepareStatement(sql);
+			
+			qry.setString(1, telefone);
+			
+			qry.execute();
+			qry.close();
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}	
+		
+		JOptionPane.showMessageDialog(null, "APAGUEI CLIENTE " + telefone, "Warning", JOptionPane.WARNING_MESSAGE);
 		
 	}
 
