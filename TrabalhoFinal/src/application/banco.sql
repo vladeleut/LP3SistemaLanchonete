@@ -16,9 +16,17 @@ insert into sist_usuario (login, senha, nome, isAdmin) values
 select * from sist_usuario;
 
 create table ingrediente(
-	id int primary key,
+	id int primary key auto_increment,
 	nome varchar(50),
-    preco double
+    preco double,
+    descricao varchar(200)
+);
+
+create table ingrediente2(
+	id int primary key auto_increment,
+	nome varchar(50),
+    preco double,
+    descricao varchar(200)
 );
 
 create table clientes(
@@ -54,3 +62,10 @@ create table caixa(
     movimentacao double,
     constraint foreign key login_id_fk(id_login) references sist_usuario(id)
 );
+
+select * from sist_usuario;
+select * from caixa;
+
+SELECT u.nome, c.hora_abertura, c.hora_fechamento, c.movimentacao 
+FROM sist_usuario u, caixa c 
+WHERE u.id = c.id_login

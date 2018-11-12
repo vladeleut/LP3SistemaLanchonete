@@ -17,9 +17,7 @@ public class CaixaDAO {
 	}
 	
 	public void abreCaixa(Usuario u) throws SQLException {
-		
-		
-		
+				
 		UsuarioDAO udao = new UsuarioDAO();
 		u.setId(udao.usuarioPorLogin(u.getLogin()).getId());
 		
@@ -57,6 +55,36 @@ public class CaixaDAO {
 			e.printStackTrace();
 		}	
 		
+	}
+	
+	public List<Caixa> getMovimentacao() {
+		String qry = "SELECT c.id_sessao, u.nome, c.hora_abertura, c.hora_fechamento, c.movimentacao FROM  sist_usuario u, caixa c WHERE u.id = c.id_login";
+		
+		List<Caixa> linhas = new ArrayList<Caixa>();
+		
+		try {
+		PreparedStatement stmt = this.conn.prepareStatement(qry);
+		ResultSet rs = stmt.executeQuery();
+		
+		while(rs.next()) {
+			Caixa cx = new Caixa();
+			cx.setId_sessao(rs.getInt(1));
+			cx.setNomeUsuario(rs.getString(2));
+			cx.setDataAbertura(rs.getString(3));
+			cx.setDataFechamento(rs.getString(4));
+			cx.setMovimento(rs.getDouble(5));
+			linhas.add(cx);
+			
+		}
+		
+		rs.close();
+		stmt.close();
+		}catch(Exception e) {
+			System.out.println(e.getMessage());
+			System.out.println("Erro no getMovimentacao");
+		}
+		
+		return linhas;
 	}
 	
 }

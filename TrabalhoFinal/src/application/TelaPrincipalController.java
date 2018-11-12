@@ -74,6 +74,9 @@ public class TelaPrincipalController {
 	@FXML
 	private Button btnDiaEquivalente;
 	
+	@FXML
+	private Button btnHistorico;
+	
 	public void abreCaixa() throws SQLException {
 		CaixaDAO cxdao = new CaixaDAO();
 		cxdao.abreCaixa(logado);
@@ -86,17 +89,7 @@ public class TelaPrincipalController {
 		JOptionPane.showMessageDialog(null, "Caixa Fechado com Sucesso", "Sucesso", JOptionPane.OK_OPTION);
 	}
 	
-	public void consultaHistorico() {
-		/*
-		 * abre janela com tabela
-		 * usuario | data abertura | data fechamento | movimentação
-		 * 
-		 * 
-		 * fazer janela
-		 * fazer tabela
-		 * popular
-		 */
-	}
+	
 	
 	
 		
@@ -282,6 +275,22 @@ public class TelaPrincipalController {
 		}
 	}
 	
+	public void pesquisa() {
+		/*
+		try {
+		ObservableList<Cliente> cli = clientes;
+		
+		for(Cliente c : clientes) {
+			if(c.getNome().contains(txtPesquisaCliente.getText())) {
+				cli.add(c);
+			}
+		}
+		clientes = cli;
+		}catch(Exception e) {
+			System.out.println(e.getMessage());
+		}*/ //PESQUISARRRRRRRRRRRRR
+	}
+	
 	
 	
 ////////////////////////////////////////////////////////
@@ -346,4 +355,59 @@ public class TelaPrincipalController {
 		
 	}
 	
+
+
+////////////////////////////////////////////////////////
+/////////////////// ABA CONFIGS ////////////////////////
+////////////////////////////////////////////////////////
+
+	@FXML
+	private Button btnIngredientes;
+	
+	public void chamaNovoIngrediente() throws IOException {
+		
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("TelaIngrediente.fxml"));
+		Pane root = loader.load();
+
+		TelaIngredienteController controller = (TelaIngredienteController)loader.getController();
+		Scene scene = new Scene(root);
+		Stage stage = new Stage();
+
+		stage.setScene(scene);
+		stage.setTitle("Novo Ingrediente");
+		stage.show();
+		stage.setAlwaysOnTop(true);
+		
+	}
+
+
+
+
+////////////////////////////////////////////////////////
+/////////////////// ABA RELATÓRIOS//////////////////////
+////////////////////////////////////////////////////////
+
+
+
+	public void consultaHistorico() throws IOException {
+
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("TelaHistoricoCaixa.fxml"));
+		Pane root = loader.load();
+
+		TelaHistoricoCaixaController controller = (TelaHistoricoCaixaController)loader.getController();
+		Scene scene = new Scene(root);
+		Stage stage = new Stage();
+
+		stage.setScene(scene);
+		stage.setTitle("Histórico de movimentações do Caixa");
+		stage.show();
+		stage.setAlwaysOnTop(true);
+		
+	}
+
+
+
+
+
+
 }

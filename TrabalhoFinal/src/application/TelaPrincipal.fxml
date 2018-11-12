@@ -43,7 +43,7 @@
                                           <Insets left="10.0" top="12.0" />
                                        </HBox.margin>
                                     </Button>
-                                    <Button fx:id="btnDiaEquivalente" mnemonicParsing="false" prefHeight="25.0" prefWidth="100.0" text="Dia Equivalente">
+                                    <Button fx:id="btnDiaEquivalente" disable="true" mnemonicParsing="false" prefHeight="25.0" prefWidth="100.0" text="Dia Equivalente">
                                        <HBox.margin>
                                           <Insets left="10.0" top="12.0" />
                                        </HBox.margin>
@@ -105,7 +105,7 @@
                                           <Insets left="20.0" right="20.0" top="15.0" />
                                        </HBox.margin>
                                     </Label>
-                                    <TextField fx:id="txtPesquisaCliente" prefWidth="250.0">
+                                    <TextField fx:id="txtPesquisaCliente" onKeyTyped="#pesquisa" prefWidth="250.0">
                                        <HBox.margin>
                                           <Insets right="20.0" top="12.0" />
                                        </HBox.margin>
@@ -175,7 +175,7 @@
                                     <Insets left="40.0" top="20.0" />
                                  </VBox.margin>
                               </Button>
-                              <Button mnemonicParsing="false" prefWidth="120.0" text="Ingredientes">
+                              <Button fx:id="btnIngredientes" mnemonicParsing="false" onAction="#chamaNovoIngrediente" prefWidth="120.0" text="Ingredientes">
                                  <VBox.margin>
                                     <Insets left="40.0" top="20.0" />
                                  </VBox.margin>
@@ -227,6 +227,11 @@
                                  </VBox.margin>
                               </Button>
                               <Button mnemonicParsing="false" prefWidth="120.0" text="Outros">
+                                 <VBox.margin>
+                                    <Insets left="40.0" top="20.0" />
+                                 </VBox.margin>
+                              </Button>
+                              <Button fx:id="btnHistorico" mnemonicParsing="false" onAction="#consultaHistorico" prefWidth="120.0" text="Histórico do Caixa">
                                  <VBox.margin>
                                     <Insets left="40.0" top="20.0" />
                                  </VBox.margin>

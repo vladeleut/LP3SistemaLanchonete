@@ -2,6 +2,8 @@ package application;
 
 import java.io.IOException;
 
+import javax.swing.JOptionPane;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -45,6 +47,9 @@ public class TelaPedidoController {
 	
 	@FXML
 	private Button btnSelecionar;
+	
+	@FXML
+	private Button btnProcuraCliente;
 	
 	@FXML
 	private CheckBox cbxUsaUmaVez;
@@ -97,6 +102,31 @@ public class TelaPedidoController {
 		stage.showAndWait();
 		stage.close();
 		//controller.setinfos
+	}
+	
+	public void completaDados() {
+		
+		ClienteDAO clidao = new ClienteDAO();
+		Cliente cli = new Cliente();
+		cli = clidao.procuraPorTelefone(txtTelefone.getText());
+		
+		if(cli != null) {
+			txtNome.setText(cli.getNome());
+			txtEndereco.setText(cli.getEndereco());
+			txtComplemento.setText(cli.getComplemento());
+			txtBairro.setText(cli.getBairro());
+			txtReferencia.setText(cli.getReferencia());
+			txtObs.setText(cli.getObservacoes());
+		}else {
+			JOptionPane.showMessageDialog(null, "Não consegui achar", "Erro", JOptionPane.ERROR_MESSAGE);
+		}
+		
+		
+	}
+	
+	public void selecionaCliente() {
+		btnInserirItem.setDisable(false);
+		//entre outras funcões
 	}
 
 }
