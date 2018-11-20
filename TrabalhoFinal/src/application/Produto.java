@@ -4,6 +4,7 @@ import java.util.List;
 
 public class Produto {
 	private int id;
+	private String nome;
 	private List<Item> ingredientes;
 	private double preco;
 	public int getId() {
@@ -24,6 +25,10 @@ public class Produto {
 	public void setPreco(double preco) {
 		this.preco = preco;
 	}
-	
-	
+	public String getNome() {
+		return nome;
+	}
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
 }

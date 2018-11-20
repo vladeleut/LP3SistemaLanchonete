@@ -2,7 +2,7 @@ package application;
 
 public class Ingrediente {
 	private String nome;
-	private String preco;
+	private double preco;
 	private String descricao;
 	
 	public String getDescricao() {
@@ -17,11 +17,11 @@ public class Ingrediente {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	public String getPreco() {
+	public double getPreco() {
 		return preco;
 	}
-	public void setPreco(String string) {
-		this.preco = string;
+	public void setPreco(double d) {
+		this.preco = d;
 	}
 	
 	

@@ -39,21 +39,22 @@ create table clientes(
     observacoes varchar(200)
 );
 select count(*) from sist_usuario where login = 'vijrekwjfdsklad';
-
+#drop table produto;
 create table produto(
-	id int primary key, 
+	id int auto_increment primary key, 
     nome varchar(30),
     preco double
 );
-
+ALTER TABLE document MODIFY id INT AUTO_INCREMENT PRIMARY KEY;
+#drop table produto_ingrediente;
 create table produto_ingrediente(
     id_prod int, 
     id_ing int,
-    constraint foreign key id_prod_fk (id_prod) references produto(id),
-    constraint foreign key id_ing_fk(id_ing) references ingrediente(id),
+    #constraint foreign key id_prod_fk (id_prod) references produto(id),
+    #constraint foreign key id_ing_fk(id_ing) references ingrediente(id),
     constraint primary key prod_ing_pk (id_prod, id_ing)
 );
-
+#delete from produto;
 create table caixa(
 	id_sessao int auto_increment not null primary key,
     id_login int, 

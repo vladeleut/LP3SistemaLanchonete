@@ -22,7 +22,7 @@ public class TelaIngredienteController {
 	public void insereIngrediente() {
 		Ingrediente ing = new Ingrediente();
 		ing.setNome(txtNome.getText());
-		ing.setPreco(txtPreco.getText());
+		ing.setPreco(Double.valueOf(txtPreco.getText()));
 		ing.setDescricao(txtDescricao.getText());
 		
 		IngredienteDAO ingdao = new IngredienteDAO();
@@ -35,4 +35,6 @@ public class TelaIngredienteController {
 		txtDescricao.setText("");;
 		
 	}
+	
+	
 }
