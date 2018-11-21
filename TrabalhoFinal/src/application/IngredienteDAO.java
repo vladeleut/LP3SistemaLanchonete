@@ -85,5 +85,36 @@ public class IngredienteDAO {
 		return id;
 		
 	}
+	
+	public String nomeIngPorProd(String nomeProd) {
+		ProdutoDAO pdao = new ProdutoDAO();
+		String listaIngredientes = "";
+		
+		String qry = "SELECT i.nome FROM ingrediente2 i, produto_ingrediente pd WHERE pd.id_prod = ? AND i.id = pd.id_ing;";
+		
+		List<String> ingredientes = new ArrayList<String>();
+		
+		try {
+		PreparedStatement stmt = this.conn.prepareStatement(qry);
+		stmt.setInt(1, pdao.recuperaIdProd(nomeProd));
+		ResultSet rs = stmt.executeQuery();
+		
+		while(rs.next()) {//se é o primeiro, não precisa colocar vírgula. depois, coloca vírgula e concatena.
+			if(!listaIngredientes.equals("")) {
+				listaIngredientes += ", ";
+			}
+			listaIngredientes += rs.getString(1);			
+		}
+		
+		rs.close();
+		stmt.close();
+		}catch(Exception e) {
+			System.out.println(e.getMessage());
+			System.out.println("Erro na lista de ingredientes");
+		}
+		System.out.println(listaIngredientes);
+		return listaIngredientes;
+		
+	}
 
 }

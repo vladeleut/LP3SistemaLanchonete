@@ -69,4 +69,5 @@ select * from caixa;
 
 SELECT u.nome, c.hora_abertura, c.hora_fechamento, c.movimentacao 
 FROM sist_usuario u, caixa c 
-WHERE u.id = c.id_login
+WHERE u.id = c.id_login;
+

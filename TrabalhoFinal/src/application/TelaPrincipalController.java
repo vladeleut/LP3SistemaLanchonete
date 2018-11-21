@@ -24,6 +24,8 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.JOptionPane;
 
@@ -200,6 +202,34 @@ public class TelaPrincipalController {
 		
 		initializeAux(1);
 		
+		//////////////////TABELA DE PRODUTOS
+		ProdutoDAO pdao = new ProdutoDAO();
+		listaProdutos = FXCollections.observableArrayList(pdao.getLista());
+		
+		TableColumn<Produto, String> colNomeProd = new TableColumn<>("Nome");
+		colNomeProd.setMinWidth(50);
+		colNomeProd.setCellValueFactory(new PropertyValueFactory<>("nome"));
+		
+		TableColumn<Produto, String> colPrecoProd = new TableColumn<>("Preço");
+		colPrecoProd.setMinWidth(50);
+		colPrecoProd.setCellValueFactory(new PropertyValueFactory<>("preco"));
+		
+		TableColumn<Produto, String> colIngsProd = new TableColumn<>("Ingredientes");
+		colIngsProd.setMinWidth(50);
+		colIngsProd.setCellValueFactory(new PropertyValueFactory<>("ingredientes"));
+		
+		tblProdutos.setItems(listaProdutos);
+		tblProdutos.getColumns().addAll(colNomeProd, colPrecoProd, colIngsProd);
+		
+		////////
+		///////////]
+		/////////
+		// agora colcoar um vetor numa coluna com os ingredientes. 
+		//////
+		/////////
+		////////
+		
+		
 	}
 	
 	@FXML
@@ -337,6 +367,8 @@ public class TelaPrincipalController {
 	
 	@FXML
 	private TextField txtPesquisaProduto;
+	
+	public ObservableList<Produto> listaProdutos;
 	
 	@FXML
 	public void NovoProduto() throws IOException{

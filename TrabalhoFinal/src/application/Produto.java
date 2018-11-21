@@ -1,11 +1,9 @@
 package application;
 
-import java.util.List;
-
 public class Produto {
 	private int id;
 	private String nome;
-	private List<Item> ingredientes;
+	private String ingredientes;
 	private double preco;
 	public int getId() {
 		return id;
@@ -13,11 +11,11 @@ public class Produto {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public List<Item> getIngredientes() {
+	public String getIngredientes() {
 		return ingredientes;
 	}
-	public void setIngredientes(List<Item> ingredientes) {
-		this.ingredientes = ingredientes;
+	public void setIngredientes(String list) {
+		this.ingredientes = list;
 	}
 	public double getPreco() {
 		return preco;
@@ -31,4 +29,5 @@ public class Produto {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
+	
 }
