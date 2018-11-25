@@ -16,12 +16,15 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
+import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
@@ -121,8 +124,8 @@ public class TelaPrincipalController {
 	
 	public ObservableList<Cliente> clientes;//precisei quebrar para utilizar fora do escopo de initialize
 	
-	
-	public void initializeAux(int refreshing) throws SQLException {
+	public void initialize() throws SQLException {
+		
 		clientes = FXCollections.observableArrayList(c.getLista()); // quebrado aqui
 		
 		//NÃO PODE FAZER CAST ASSIM
@@ -166,7 +169,12 @@ public class TelaPrincipalController {
 			public TableCell call(final TableColumn<Cliente, String> param) {
 				final TableCell<Cliente, String> cell = new TableCell<Cliente, String>() {
 
-					final Button btn = new Button("Just Do It");
+					
+
+					File imageFile = new File("C:/Users/eleut/OneDrive/ADS 2017/2018-2/LP3/Codigos/TrabalhoFinal/src/images/TrashRszd.png");
+					Image trashImage = new Image(imageFile.toURI().toString());
+					final Button btn = new Button("", new ImageView(trashImage));
+					
 
 					@Override
 					public void updateItem(String item, boolean empty) {
@@ -179,8 +187,11 @@ public class TelaPrincipalController {
 								ClienteDAO cdao = new ClienteDAO();
 								Cliente person = getTableView().getItems().get(getIndex());
 								cdao.apagaPorTelefone(person.getTelefone());
-
-								//System.out.println(person.getTelefone()+ "   ");
+								try {
+									atualizaTblCliente();
+								} catch (SQLException e) {
+									System.out.println(e.getMessage());
+								}
 							});
 							setGraphic(btn);
 							setText(null);
@@ -192,20 +203,10 @@ public class TelaPrincipalController {
 		};
 		
 		deleteCol.setCellFactory(cellFactory);
-
 		/////////////FIM DA COLUNA DE BOTÕES, SÓ ADICIONA ELE ABAIXO.
 		
-		if(refreshing == 1) {
-			tblClientes.getColumns().removeAll(colTelCli, colNomeCli, colEndCli,colComplCli, colBairroCli, colRefCli, colObsCli, deleteCol);
-		}
-		
 		tblClientes.setItems(clientes);
-		tblClientes.getColumns().addAll(colTelCli, colNomeCli, colEndCli,colComplCli, colBairroCli, colRefCli, colObsCli, deleteCol);
-	}
-	
-	public void initialize() throws SQLException {
-		
-		initializeAux(1);
+		tblClientes.getColumns().addAll(deleteCol, colTelCli, colNomeCli, colEndCli,colComplCli, colBairroCli, colRefCli, colObsCli);
 		
 		//////////////////TABELA DE PRODUTOS
 		ProdutoDAO pdao = new ProdutoDAO();
@@ -225,20 +226,19 @@ public class TelaPrincipalController {
 		
 		tblProdutos.setItems(listaProdutos);
 		tblProdutos.getColumns().addAll(colNomeProd, colPrecoProd, colIngsProd);
-	
-		
 		
 	}
 	
 	@FXML
 	public void atualizaTblCliente() throws SQLException {
-		initializeAux(0);
+		clientes = FXCollections.observableArrayList(c.getLista());
+		tblClientes.setItems(clientes);
 	}
 	
 	
 	
 	@FXML
-	public void chamaNovoCliente() throws IOException {//chama janela para ccriar cliente
+	public void chamaNovoCliente() throws IOException, SQLException {//chama janela para ccriar cliente
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("TelaCliente.fxml"));
 		Pane root = loader.load();
 		
@@ -250,7 +250,7 @@ public class TelaPrincipalController {
 		stage.initModality(Modality.WINDOW_MODAL);
 		stage.initOwner( lblPesquisa.getScene().getWindow() );
 		stage.showAndWait();
-		
+		atualizaTblCliente();
 	}
 	/*
 	@FXML
@@ -271,7 +271,7 @@ public class TelaPrincipalController {
 	}
 	
 	@FXML
-	public void chamaCliente(MouseEvent event) throws IOException {//chama janela para ccriar cliente
+	public void chamaCliente(MouseEvent event) throws IOException, SQLException {//chama janela para ccriar cliente
 
 		String telefone = "";
 
@@ -298,7 +298,8 @@ public class TelaPrincipalController {
 
 			stage.setScene(scene);
 			stage.setTitle("Editar cliente");
-			stage.show();
+			stage.showAndWait();
+			atualizaTblCliente();
 			stage.setAlwaysOnTop(true);
 		}
 	}

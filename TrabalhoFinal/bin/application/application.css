@@ -4,14 +4,14 @@
 }
 
 .tab {
-    -fx-padding: 3em 0.5em 3em 0.5em;
+    -fx-padding: 0.5em 0.5em 0.5em 0.5em;
 }
 
 .tab-pane {
-  -fx-tab-min-width:60px;
-  -fx-tab-max-width:60px;
-  -fx-tab-min-height:25px;
-  -fx-tab-max-height:25px;
+  -fx-tab-min-width:80px;
+  -fx-tab-max-width:100px;
+  -fx-tab-min-height:150px;
+  -fx-tab-max-height:100px;
 }
 
 .tab-pane *.tab-header-area *.tab-header-background {

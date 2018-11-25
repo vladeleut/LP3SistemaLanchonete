@@ -1,6 +1,7 @@
 package application;
 
 import java.awt.HeadlessException;
+import java.io.File;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
@@ -42,10 +43,11 @@ public class TelaLoginController {
 	public void fazerLogin() throws IOException, HeadlessException, SQLException {
 		UsuarioDAO u = new UsuarioDAO();
 		
-		txtLogin.setText("vlad");
-		txtSenha.setText("root");
+		//txtLogin.setText("vlad");
+		//txtSenha.setText("root");
 		
 		if(u.fazLogin(txtLogin.getText(), txtSenha.getText())) {
+			
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("TelaPrincipal.fxml"));
 			Pane root = loader.load();
 			
