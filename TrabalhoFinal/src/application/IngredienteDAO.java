@@ -61,6 +61,33 @@ public class IngredienteDAO {
 		return ingredientes;
 	}
 	
+	public List<Ingrediente> getListaPorProd(String nomeProd) {
+		ProdutoDAO pdao = new ProdutoDAO();
+		
+		String qry = "SELECT i.nome FROM ingrediente2 i, produto_ingrediente pd WHERE pd.id_prod = ? AND i.id = pd.id_ing;";
+		
+		List<Ingrediente> ingredientes = new ArrayList<Ingrediente>();
+		
+		try {
+		PreparedStatement stmt = this.conn.prepareStatement(qry);
+		stmt.setInt(1, pdao.recuperaIdProd(nomeProd));
+		ResultSet rs = stmt.executeQuery();
+		
+		while(rs.next()) {
+			Ingrediente i = new Ingrediente();
+			i.setNome(rs.getString(1));
+			ingredientes.add(i);			
+		}
+		
+		rs.close();
+		stmt.close();
+		}catch(Exception e) {
+			System.out.println(e.getMessage());
+			System.out.println("Erro na getListaPorProd");
+		}
+		return ingredientes;
+	}
+	
 	public int recuperaIdIng(String nomeIng) {
 		
 		int id = 0;

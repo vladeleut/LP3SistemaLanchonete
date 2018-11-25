@@ -6,3 +6,18 @@
 .tab {
     -fx-padding: 3em 0.5em 3em 0.5em;
 }
+
+.tab-pane {
+  -fx-tab-min-width:60px;
+  -fx-tab-max-width:60px;
+  -fx-tab-min-height:25px;
+  -fx-tab-max-height:25px;
+}
+
+.tab-pane *.tab-header-area *.tab-header-background {
+  -fx-background-color:transparent;
+}
+
+.tab:selected {
+    -fx-background-color:darkgrey;
+}

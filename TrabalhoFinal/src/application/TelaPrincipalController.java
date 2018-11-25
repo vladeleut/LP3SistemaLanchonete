@@ -9,6 +9,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -32,6 +34,9 @@ import javax.swing.JOptionPane;
 public class TelaPrincipalController {
 	
 	ClienteDAO c = new ClienteDAO();
+	
+	@FXML
+	private TabPane tabPane;
 	
 	@FXML
 	private Label lblNomeUsuario;
@@ -220,14 +225,7 @@ public class TelaPrincipalController {
 		
 		tblProdutos.setItems(listaProdutos);
 		tblProdutos.getColumns().addAll(colNomeProd, colPrecoProd, colIngsProd);
-		
-		////////
-		///////////]
-		/////////
-		// agora colcoar um vetor numa coluna com os ingredientes. 
-		//////
-		/////////
-		////////
+	
 		
 		
 	}
