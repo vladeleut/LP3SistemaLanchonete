@@ -123,7 +123,7 @@ public class ClienteDAO {
 
 	public void apagaPorTelefone(String telefone) {
 		
-String sql = "DELETE FROM Clientes WHERE telefone = ?";
+		String sql = "DELETE FROM Clientes WHERE telefone = ?";
 		
 		try {
 			PreparedStatement qry = conn.prepareStatement(sql);
@@ -139,6 +139,27 @@ String sql = "DELETE FROM Clientes WHERE telefone = ?";
 		
 		JOptionPane.showMessageDialog(null, "APAGUEI CLIENTE " + telefone, "Warning", JOptionPane.WARNING_MESSAGE);
 		
+	}
+	
+	public int procuraIdPorTelefone(String telefone) {
+		int id = 0;
+		try {
+			String qry = "SELECT id FROM clientes WHERE telefone  = ?";
+			PreparedStatement stmt = this.conn.prepareStatement(qry);
+			stmt.setString(1, telefone);
+			ResultSet rs = stmt.executeQuery();
+			
+			
+			if(rs.next()) {
+				id = rs.getInt(1);
+			}
+			
+			rs.close();
+			stmt.close();
+			} catch (SQLException e) {
+				System.out.println(e.getMessage());
+			}
+			return id;
 	}
 
 }

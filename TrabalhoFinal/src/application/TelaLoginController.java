@@ -73,33 +73,6 @@ public class TelaLoginController {
 		}
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	@FXML
 	public void entrar() throws SQLException, IOException {
 		UsuarioDAO u = new UsuarioDAO();

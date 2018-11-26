@@ -1,6 +1,7 @@
 package application;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 import javax.swing.JOptionPane;
 
@@ -68,10 +69,13 @@ public class TelaPedidoController {
 	private Label lblPreco;
 	
 	@FXML
+	private Label lblNroPedido;
+	
+	@FXML
 	private TableView<Item> tblItensPedido;
 	
 	@FXML
-	public void pagamento() throws IOException {//chama tela de pagamento 
+	public void pagamento(int NroPedido) throws IOException {//chama tela de pagamento 
 		
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("TelaPagamento.fxml"));
 		Pane root = loader.load();
@@ -128,9 +132,35 @@ public class TelaPedidoController {
 		
 	}
 	
-	public void selecionaCliente() {
+	public void selecionaCliente() throws SQLException, IOException {
 		btnInserirItem.setDisable(false);
-		//entre outras funcões
+		btnFinalizar.setDisable(false);
+		Pedido pedido = new Pedido();
+		Cliente c = getDadosCliente();
+		PedidoDAO pdao = new PedidoDAO();
+		pedido = pdao.criaPedido(c);
+		lblNroPedido.setText(String.valueOf(pedido.getNumero()));
+		
+	}
+	
+	public Cliente getDadosCliente() {
+		Cliente c = new Cliente();
+		c.setBairro(txtBairro.getText());
+		c.setComplemento(txtComplemento.getText());
+		c.setEndereco(txtEndereco.getText());
+		c.setNome(txtNome.getText());
+		c.setObservacoes(txtObs.getText());
+		c.setReferencia(txtReferencia.getText());
+		c.setTelefone(txtTelefone.getText());
+		
+		return c;
+	}
+	
+	public void finalizaPedido() throws NumberFormatException, IOException {
+		////PRECISA DE MAIS FUNÇ~/OES
+		PedidoDAO pdao = new PedidoDAO();
+		pdao.atualizaStatus(2, Integer.valueOf(lblNroPedido.getText()));
+		pagamento(Integer.valueOf(lblNroPedido.getText()));
 	}
 
 }

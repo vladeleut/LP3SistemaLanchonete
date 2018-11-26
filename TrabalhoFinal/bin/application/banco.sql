@@ -71,3 +71,22 @@ SELECT u.nome, c.hora_abertura, c.hora_fechamento, c.movimentacao
 FROM sist_usuario u, caixa c 
 WHERE u.id = c.id_login;
 
+
+create table status_pedidos(
+	id int primary key auto_increment,
+    situacao varchar(50)
+    );
+insert into status_pedidos(situacao) values
+('Novo'), ('Aberto'), ('Em rota'), ('Entregue'), ('Cancelado');
+
+#drop table pedido;
+create table pedido(
+	id int primary key auto_increment, 
+    tel_cliente varchar(20), #fk cliente
+    hora_abertura datetime,
+    hora_fechamento datetime,
+    situacao int default '1',#fk tbm, status_pedidos
+    valor_total double
+    );
+    
+

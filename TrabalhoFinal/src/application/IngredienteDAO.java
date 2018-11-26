@@ -139,7 +139,6 @@ public class IngredienteDAO {
 			System.out.println(e.getMessage());
 			System.out.println("Erro na lista de ingredientes");
 		}
-		System.out.println(listaIngredientes);
 		return listaIngredientes;
 		
 	}

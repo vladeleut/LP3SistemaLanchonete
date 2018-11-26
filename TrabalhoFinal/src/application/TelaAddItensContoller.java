@@ -12,6 +12,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
@@ -39,11 +40,18 @@ public class TelaAddItensContoller {
 	@FXML
 	private TableView<Ingrediente> tblIngredsProduto;
 	
+	@FXML
+	private TableView<Ingrediente> tblAcrescimos;
+	
 	public ObservableList<Produto> listaProdutos;
 	
 	public ObservableList<Ingrediente> listaIngreds;
 	
+	public ObservableList<Ingrediente> acrescimos;
+	
 	ProdutoDAO pdao = new ProdutoDAO();
+	
+	IngredienteDAO idao = new IngredienteDAO();
 	
 	public void initialize(){
 		
@@ -62,14 +70,36 @@ public class TelaAddItensContoller {
 		tblProdutos.getColumns().addAll(colNomeProd, colPrecoProd);
 		
 		
-		
-		
+		//////////Tabela de ingredientes do produto selecionado		
 		TableColumn<Ingrediente, String> colNomeIng = new TableColumn<>("Ingrediente");
 		colNomeIng.setMinWidth(120);
 		colNomeIng.setCellValueFactory(new PropertyValueFactory<>("nome"));
 		
+		//TableColumn<Ingrediente, String> colSelected = new TableColumn<>("Ingrediente");
+		//colNomeIng.setMinWidth(120);
+		//colSelected.setCellValueFactory(CheckBoxTableCell<S, T>.forTableColumn(colSelected));
+		
 		tblIngredsProduto.getColumns().addAll(colNomeIng);
 		tblIngredsProduto.setItems(listaIngreds);
+		
+		
+		//////////tabela dos Acréscimos
+		acrescimos = FXCollections.observableArrayList(idao.getLista());
+		
+		TableColumn<Ingrediente, String> colNomeAcres = new TableColumn<>("Nome");
+		colNomeAcres.setMinWidth(60);
+		colNomeAcres.setCellValueFactory(new PropertyValueFactory<>("nome"));
+		
+		TableColumn<Ingrediente, String> colPrecoAcres = new TableColumn<>("Preço");
+		colPrecoAcres.setMinWidth(40);
+		colPrecoAcres.setCellValueFactory(new PropertyValueFactory<>("preco"));
+		
+		TableColumn<Ingrediente, String> colDescAcres = new TableColumn<>("Descrição");
+		colDescAcres.setMinWidth(90);
+		colDescAcres.setCellValueFactory(new PropertyValueFactory<>("descricao"));
+		
+		tblAcrescimos.setItems(acrescimos);
+		tblAcrescimos.getColumns().addAll(colNomeAcres, colPrecoAcres, colDescAcres);
 		
 	}
 	
@@ -90,5 +120,10 @@ public class TelaAddItensContoller {
 		}
 	}
 	
-	
+	@FXML
+	public void acrescentaItem(MouseEvent event) {
+		if (event.getClickCount() == 2){ 
+			System.out.println("cliquei");
+		}
+	}
 }

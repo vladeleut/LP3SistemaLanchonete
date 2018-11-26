@@ -127,6 +127,9 @@ public class TelaPrincipalController {
 	public void initialize() throws SQLException {
 		
 		clientes = FXCollections.observableArrayList(c.getLista()); // quebrado aqui
+		for(Cliente c : clientes) {
+			
+		}
 		
 		//NÃO PODE FAZER CAST ASSIM
 		//clientes = (ObservableList<Cliente>) c.getLista();
@@ -161,7 +164,7 @@ public class TelaPrincipalController {
         
 		/////////////COLOCANDO O BOTÃO DE DELETAR
 
-		TableColumn deleteCol = new TableColumn("Apagar");
+		TableColumn deleteCol = new TableColumn("");
 		deleteCol.setCellValueFactory(new PropertyValueFactory<>("bairro"));
 
 		Callback<TableColumn<Cliente, String> , TableCell<Cliente, String>> cellFactory =  new Callback<TableColumn<Cliente, String> , TableCell<Cliente, String>>() {
@@ -227,12 +230,43 @@ public class TelaPrincipalController {
 		tblProdutos.setItems(listaProdutos);
 		tblProdutos.getColumns().addAll(colNomeProd, colPrecoProd, colIngsProd);
 		
+		
+		//////////////////TABELA DE PEDIDOS
+		listaPedidos = FXCollections.observableArrayList(peddao.getLista());
+
+		TableColumn<Pedido, String> colNroPed = new TableColumn<>("Número");
+		colNroPed.setPrefWidth(35);
+		colNroPed.setCellValueFactory(new PropertyValueFactory<>("numero"));
+		TableColumn<Pedido, String> colTelCliPed = new TableColumn<>("Telefone");
+		colTelCliPed.setMinWidth(50);
+		colTelCliPed.setCellValueFactory(new PropertyValueFactory<>("tel_cli"));
+		TableColumn<Pedido, String> colNomeCliPed = new TableColumn<>("Cliente");
+		colNomeCliPed.setMinWidth(50);
+		colNomeCliPed.setCellValueFactory(new PropertyValueFactory<>("nome_cli"));
+		TableColumn<Pedido, String> colSitPed = new TableColumn<>("Situação");
+		colSitPed.setMinWidth(50);
+		colSitPed.setCellValueFactory(new PropertyValueFactory<>("situacao"));
+		TableColumn<Pedido, String> coltsAberturaPed = new TableColumn<>("Abertura");
+		coltsAberturaPed.setMinWidth(50);
+		coltsAberturaPed.setCellValueFactory(new PropertyValueFactory<>("tsAbertura"));
+		//colNomeProd.setMinWidth(50);
+
+
+		tblPedidos.setItems(listaPedidos);
+		tblPedidos.getColumns().addAll(colNroPed, colNomeCliPed, colTelCliPed, coltsAberturaPed, colSitPed);
+		
 	}
 	
 	@FXML
 	public void atualizaTblCliente() throws SQLException {
 		clientes = FXCollections.observableArrayList(c.getLista());
 		tblClientes.setItems(clientes);
+	}
+	
+	@FXML
+	public void atualizaTblPedidos() throws SQLException {
+		listaPedidos = FXCollections.observableArrayList(peddao.getLista());
+		tblPedidos.setItems(listaPedidos);
 	}
 	
 	
@@ -335,8 +369,13 @@ public class TelaPrincipalController {
 	@FXML
 	private TextField txtPesquisaPedido;
 	
+	public ObservableList<Pedido> listaPedidos;
+	
+	PedidoDAO peddao = new PedidoDAO();
+	
 	@FXML
-	public void NovoPedido() throws IOException{
+	public void NovoPedido() throws IOException, SQLException{
+		PedidoDAO pdao = new PedidoDAO();
 		
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("TelaPedido.fxml"));
 		Pane root = loader.load();
@@ -349,10 +388,22 @@ public class TelaPrincipalController {
 		stage.initModality(Modality.WINDOW_MODAL);
 		stage.initOwner( btnNovoPedido.getScene().getWindow() );
 		stage.showAndWait();
-		
-		
+		pdao.evitaErros();
+		atualizaTblPedidos();
 	}
 	
+	@FXML
+	public void avancaStatus(MouseEvent event) throws SQLException {
+		if (event.getClickCount() == 2){ 
+			
+			int opt = JOptionPane.showConfirmDialog(null, "Deseja atualizar o status?", "Atenção", JOptionPane.YES_NO_OPTION);
+			if(opt == 0) {
+				int nroPedido = tblPedidos.getSelectionModel().getSelectedItem().getNumero();
+				peddao.avancaStatus(nroPedido);
+				atualizaTblPedidos();
+			}
+		}
+	}
 	
 ////////////////////////////////////////////////////////
 /////////////////// ABA PRODUTOS////////////////////////
