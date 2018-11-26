@@ -104,10 +104,11 @@ public class TelaPedidoController {
 		Scene scene = new Scene(root);
 		Stage stage = new Stage();
 		stage.setScene(scene);
-		stage.setTitle("Forma de Pagamento");
+		stage.setTitle("Selecionar e adicionar um item");
 		stage.initModality(Modality.WINDOW_MODAL);
 		stage.initOwner( lblPreco.getScene().getWindow() );
 		stage.showAndWait();
+		atualizaTblItens();
 		stage.close();
 		//controller.setinfos
 	}
@@ -161,6 +162,41 @@ public class TelaPedidoController {
 		PedidoDAO pdao = new PedidoDAO();
 		pdao.atualizaStatus(2, Integer.valueOf(lblNroPedido.getText()));
 		pagamento(Integer.valueOf(lblNroPedido.getText()));
+	}
+	
+	@FXML
+	private TableView<Item> tblItens;
+	
+	public ObservableList<Item> itens;
+	
+	ItemDAO itdao = new ItemDAO();
+	
+	public void initialize() {
+		try {
+		//itens = FXCollections.observableArrayList(itdao.getLista());
+		
+		TableColumn<Item, String> colNomeItem = new TableColumn<>("Nome");
+		colNomeItem.setMinWidth(40);
+		colNomeItem.setCellValueFactory(new PropertyValueFactory<>("nome"));
+		
+		TableColumn<Item, Double> colPrecoItem = new TableColumn<>("Preço");
+		colPrecoItem.setMinWidth(50);
+		colPrecoItem.setCellValueFactory(new PropertyValueFactory<>("preco"));
+		
+		TableColumn<Item, String> colObsItem = new TableColumn<>("Observações");
+		colObsItem.setMinWidth(170);
+		colObsItem.setCellValueFactory(new PropertyValueFactory<>("obs"));
+		
+		//tblItens.setItems(itens);
+		tblItensPedido.getColumns().addAll(colNomeItem, colPrecoItem, colObsItem);
+		}catch(Exception e) {
+			System.out.println("Erro feio");
+		}
+	}
+	
+	public void atualizaTblItens() {
+		itens = FXCollections.observableArrayList(itdao.getLista());
+		tblItensPedido.setItems(itens);
 	}
 
 }

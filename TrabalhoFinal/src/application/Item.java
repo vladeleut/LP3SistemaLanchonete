@@ -6,6 +6,14 @@ public class Item {
 	private String nome;
 	private double preco;
 	private List<Ingrediente> ingredientes;
+	private String obs;
+	
+	public String getObs() {
+		return obs;
+	}
+	public void setObs(String obs) {
+		this.obs = obs;
+	}
 	public String getNome() {
 		return nome;
 	}

@@ -1,6 +1,9 @@
 package application;
 
 import java.io.IOException;
+import java.sql.SQLException;
+
+import javax.swing.JOptionPane;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -12,6 +15,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
@@ -28,6 +32,9 @@ public class TelaAddItensContoller {
 	
 	@FXML
 	private Label lblPreco;
+	
+	@FXML
+	private TextField txtObs;
 	
 	@FXML
 	public void cancelar() {
@@ -126,4 +133,18 @@ public class TelaAddItensContoller {
 			System.out.println("cliquei");
 		}
 	}
+	
+	@FXML
+	public void addItem() throws SQLException {
+		PedidoDAO peddao = new PedidoDAO();
+		ProdutoDAO pdao = new ProdutoDAO();
+		try {
+			int idProd = pdao.recuperaIdProd(tblProdutos.getSelectionModel().getSelectedItem().getNome());
+			peddao.addProdutoNoPedidoNovo(idProd, txtObs.getText());
+		}catch(Exception e) {
+			System.out.println(e.getMessage());
+			JOptionPane.showMessageDialog(null, "É preciso selecionar um produto na tabela", "Erro", JOptionPane.ERROR_MESSAGE);
+		}
+	}
+	
 }

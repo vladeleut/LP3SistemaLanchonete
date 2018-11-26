@@ -139,6 +139,37 @@ public class PedidoDAO {
 			System.out.println(e.getMessage());
 		}	
 	}
+	
+	public void addProdutoNoPedidoNovo(int idProd, String obs) throws SQLException {
+		int idPedido = 0;
+		
+		String qry = "SELECT id FROM pedido WHERE situacao = 1";
+		
+		PreparedStatement stmt = this.conn.prepareStatement(qry);
+		ResultSet rs = stmt.executeQuery();
+		
+		if(rs.next()) {
+			idPedido = rs.getInt(1);
+		}
+		
+		rs.close();
+		stmt.close();
+		
+		String novaQry = "INSERT INTO produto_pedido(id_produto, id_pedido, obs) values (?,?,?)";
+		try {
+			PreparedStatement stmt2 = conn.prepareStatement(novaQry);
+			stmt2.setInt(1, idProd);
+			stmt2.setInt(2, idPedido);
+			stmt2.setString(3, obs);
+			stmt2.execute();
+			stmt2.close();
+		}catch(Exception e) {
+			System.out.println(e.getMessage());
+			System.out.println("erro no pedido DAO stmt2");
+		}
+		
+		
+	}
 
 	
 }
