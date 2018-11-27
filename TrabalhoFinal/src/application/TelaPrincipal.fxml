@@ -7,8 +7,6 @@
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
@@ -53,6 +51,9 @@
                                  </children>
                               </HBox>
                               <TableView fx:id="tblCaixa" prefHeight="490.0" prefWidth="590.0">
+                              	<columnResizePolicy>
+            						<TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+       							</columnResizePolicy>
                                  <VBox.margin>
                                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                  </VBox.margin></TableView>
@@ -74,7 +75,7 @@
                                           <Insets left="20.0" right="20.0" top="15.0" />
                                        </HBox.margin>
                                     </Label>
-                                    <TextField fx:id="txtPesquisaPedido" prefWidth="250.0">
+                                    <TextField fx:id="txtPesquisaPedido" disable="true" prefWidth="250.0">
                                        <HBox.margin>
                                           <Insets right="20.0" top="12.0" />
                                        </HBox.margin>
@@ -82,11 +83,6 @@
                                     <Button fx:id="btnNovoPedido" mnemonicParsing="false" onAction="#NovoPedido" prefWidth="100.0" text="Novo">
                                        <HBox.margin>
                                           <Insets left="10.0" top="12.0" />
-                                       </HBox.margin>
-                                    </Button>
-                                    <Button mnemonicParsing="false" text="A">
-                                       <HBox.margin>
-                                          <Insets left="30.0" top="12.0" />
                                        </HBox.margin>
                                     </Button>
                                  </children>
@@ -116,7 +112,7 @@
                                           <Insets left="20.0" right="20.0" top="15.0" />
                                        </HBox.margin>
                                     </Label>
-                                    <TextField fx:id="txtPesquisaCliente" onKeyTyped="#pesquisa" prefWidth="250.0">
+                                    <TextField fx:id="txtPesquisaCliente" disable="true" onKeyTyped="#pesquisa" prefWidth="250.0">
                                        <HBox.margin>
                                           <Insets right="20.0" top="12.0" />
                                        </HBox.margin>
@@ -125,18 +121,6 @@
                                        <HBox.margin>
                                           <Insets left="10.0" top="12.0" />
                                        </HBox.margin>
-                                    </Button>
-                                    <Button fx:id="btnAtualizaTbl" mnemonicParsing="false" onAction="#atualizaTblCliente">
-                                       <HBox.margin>
-                                          <Insets left="30.0" top="12.0" />
-                                       </HBox.margin>
-                                       <graphic>
-                                          <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
-                                             <image>
-                                                <Image url="@../../../../../../../../Desktop/8338-200.png" />
-                                             </image>
-                                          </ImageView>
-                                       </graphic>
                                     </Button>
                                  </children>
                               </HBox>
@@ -162,7 +146,7 @@
                                           <Insets left="20.0" right="20.0" top="15.0" />
                                        </HBox.margin>
                                     </Label>
-                                    <TextField fx:id="txtPesquisaProduto" prefWidth="250.0">
+                                    <TextField fx:id="txtPesquisaProduto" disable="true" prefWidth="250.0">
                                        <HBox.margin>
                                           <Insets right="20.0" top="12.0" />
                                        </HBox.margin>
@@ -170,11 +154,6 @@
                                     <Button fx:id="btnNovoProduto" mnemonicParsing="false" onAction="#NovoProduto" prefWidth="100.0" text="Novo">
                                        <HBox.margin>
                                           <Insets left="10.0" top="12.0" />
-                                       </HBox.margin>
-                                    </Button>
-                                    <Button mnemonicParsing="false" text="A">
-                                       <HBox.margin>
-                                          <Insets left="30.0" top="12.0" />
                                        </HBox.margin>
                                     </Button>
                                  </children>
@@ -235,7 +214,12 @@
                      <children>
                         <VBox layoutX="186.0" layoutY="34.0" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="200.0">
                            <children>
-                              <Button mnemonicParsing="false" prefWidth="120.0" text="Vendas Semana">
+                              <Button fx:id="btnHistorico" mnemonicParsing="false" onAction="#consultaHistorico" prefWidth="120.0" text="Histórico do Caixa">
+                                 <VBox.margin>
+                                    <Insets left="40.0" top="20.0" />
+                                 </VBox.margin>
+                              </Button>
+                              <Button mnemonicParsing="false" onAction="#relatorioTopClientes" prefWidth="120.0" text="Top 10 Clientes">
                                  <VBox.margin>
                                     <Insets left="40.0" top="20.0" />
                                  </VBox.margin>
@@ -251,11 +235,6 @@
                                  </VBox.margin>
                               </Button>
                               <Button mnemonicParsing="false" prefWidth="120.0" text="Outros">
-                                 <VBox.margin>
-                                    <Insets left="40.0" top="20.0" />
-                                 </VBox.margin>
-                              </Button>
-                              <Button fx:id="btnHistorico" mnemonicParsing="false" onAction="#consultaHistorico" prefWidth="120.0" text="Histórico do Caixa">
                                  <VBox.margin>
                                     <Insets left="40.0" top="20.0" />
                                  </VBox.margin>

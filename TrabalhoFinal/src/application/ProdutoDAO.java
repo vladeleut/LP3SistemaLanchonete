@@ -99,7 +99,6 @@ public class ProdutoDAO {
 				p.setNome(rs.getString(1));
 				p.setPreco(rs.getDouble(2));
 				p.setIngredientes(idao.nomeIngPorProd(p.getNome()));
-				System.out.println(idao.nomeIngPorProd(p.getNome()));
 				linhas.add(p);
 			}
 

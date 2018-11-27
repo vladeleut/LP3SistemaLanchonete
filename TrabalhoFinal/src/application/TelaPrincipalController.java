@@ -73,7 +73,7 @@ public class TelaPrincipalController {
 	////////////////////////////////////////////////////////
 
 	@FXML
-	private TableView<Pedido> tblCaixa;
+	private TableView<Transacoes> tblCaixa;
 
 	@FXML
 	private Button btnAbrirCaixa;
@@ -86,6 +86,10 @@ public class TelaPrincipalController {
 	
 	@FXML
 	private Button btnHistorico;
+	
+	TransacoesDAO tdao = new TransacoesDAO();
+	
+	public ObservableList<Transacoes> listaCaixa;
 	
 	public void abreCaixa() throws SQLException {
 		CaixaDAO cxdao = new CaixaDAO();
@@ -255,6 +259,37 @@ public class TelaPrincipalController {
 		tblPedidos.setItems(listaPedidos);
 		tblPedidos.getColumns().addAll(colNroPed, colNomeCliPed, colTelCliPed, coltsAberturaPed, colSitPed);
 		
+		
+		
+		
+		//////////////////TABELA DE CAIXA
+		listaCaixa = FXCollections.observableArrayList(tdao.getLista());
+
+		TableColumn<Transacoes, Integer> colIdCaixa = new TableColumn<>("Número Pedido");
+		colIdCaixa.setPrefWidth(35);
+		colIdCaixa.setCellValueFactory(new PropertyValueFactory<>("id"));
+		
+		TableColumn<Transacoes, String> colCaixaNomeCli = new TableColumn<>("Nome Cliente");
+		colCaixaNomeCli.setMinWidth(50);
+		colCaixaNomeCli.setCellValueFactory(new PropertyValueFactory<>("nome"));
+		
+		TableColumn<Transacoes, Double> colCaixaValor = new TableColumn<>("Valor do Pedido");
+		colCaixaValor.setMinWidth(50);
+		colCaixaValor.setCellValueFactory(new PropertyValueFactory<>("valor"));
+		
+		TableColumn<Transacoes, String> colCaixaFormaPagto = new TableColumn<>("Forma de Pagamento");
+		colCaixaFormaPagto.setMinWidth(50);
+		colCaixaFormaPagto.setCellValueFactory(new PropertyValueFactory<>("formaPagto"));
+		//colNomeProd.setMinWidth(50);
+
+
+		tblCaixa.setItems(listaCaixa);
+		tblCaixa.getColumns().addAll(colIdCaixa, colCaixaNomeCli, colCaixaValor, colCaixaFormaPagto);
+	}
+	
+	public void atualizaTblCaixa() throws SQLException {
+		listaCaixa = FXCollections.observableArrayList(tdao.getLista());
+		tblCaixa.setItems(listaCaixa);
 	}
 	
 	@FXML
@@ -267,6 +302,7 @@ public class TelaPrincipalController {
 	public void atualizaTblPedidos() throws SQLException {
 		listaPedidos = FXCollections.observableArrayList(peddao.getLista());
 		tblPedidos.setItems(listaPedidos);
+		atualizaTblCaixa();
 	}
 	
 	
@@ -485,6 +521,20 @@ public class TelaPrincipalController {
 		stage.show();
 		stage.setAlwaysOnTop(true);
 		
+	}
+	
+	public void relatorioTopClientes() throws IOException {
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("TelaTopClientes.fxml"));
+		Pane root = loader.load();
+
+		TelaTopClientesController controller = (TelaTopClientesController)loader.getController();
+		Scene scene = new Scene(root);
+		Stage stage = new Stage();
+
+		stage.setScene(scene);
+		stage.setTitle("Valor gasto por Cliente");
+		stage.show();
+		stage.setAlwaysOnTop(true);
 	}
 
 

@@ -61,25 +61,33 @@ public class PedidoDAO {
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}	
-				
-		String qry = "SELECT id FROM pedido WHERE situacao = 1";
-		
-		PreparedStatement stmt = this.conn.prepareStatement(qry);
-		ResultSet rs = stmt.executeQuery();
-		
-		Pedido pedido = new Pedido();
-		
-		if(rs.next()) {
 			
-			pedido.setNumero(rs.getInt(1));
-		}
-		
-		rs.close();
-		stmt.close();
+		Pedido pedido = new Pedido();
+		pedido.setNumero(encontraPedidoAberto());
 		
 		return pedido;
 	}
 	
+	private int encontraPedidoAberto() {
+		int nroPedidoAberto = 0;
+		String qry = "SELECT id FROM pedido WHERE situacao = 1";
+		try {
+		PreparedStatement stmt = this.conn.prepareStatement(qry);
+		ResultSet rs = stmt.executeQuery();
+		
+		if(rs.next()) {
+			
+			nroPedidoAberto = rs.getInt(1);
+		}
+		
+		rs.close();
+		stmt.close();
+		}catch(Exception e) {
+			System.out.println(e.getMessage() + "Erro na encontraPedidoAberto");
+		}
+		return nroPedidoAberto;
+	}
+
 	public void atualizaStatus(int situacao, int nro_pedido) {
 		/*
 		Legenda:
@@ -170,6 +178,26 @@ public class PedidoDAO {
 		
 		
 	}
-
+	
+	public void registraPagto(double valor, String formaDePagto) {
+		System.out.println(valor);
+		System.out.println(formaDePagto);
+		PedidoDAO pddao= new PedidoDAO();
+		int nroPedido = pddao.encontraPedidoAberto();
+		
+		String qry = "INSERT INTO pagamentos (id_pedido, valor, formaPagto) values (?,?,?)";
+		try {
+			PreparedStatement stmt = conn.prepareStatement(qry);
+			stmt.setInt(1, nroPedido);
+			stmt.setDouble(2, valor);
+			stmt.setString(3, formaDePagto);
+			stmt.execute();
+			stmt.close();
+		}catch(Exception e) {
+			System.out.println(e.getMessage()+"Erro ao registrar pagamento - pddao 195");
+			
+		}
+		
+	}
 	
 }

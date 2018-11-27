@@ -134,6 +134,7 @@ public class TelaProdutoController {
 		for(Ingrediente i : tblIngredsAtuais.getItems()) {
 			pdao.relacionaProdIng(p.getNome(), i.getNome());
 		}
+		((Stage)btnCriarProd.getScene().getWindow()).close();
 	}
 	
 }

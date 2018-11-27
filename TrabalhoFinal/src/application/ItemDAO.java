@@ -40,7 +40,6 @@ public class ItemDAO {
 			System.out.println(e.getMessage());
 			System.out.println("Erro na lista de itesn");
 		}
-		System.out.println(itensPedido);
 		return itensPedido;
 		
 	}

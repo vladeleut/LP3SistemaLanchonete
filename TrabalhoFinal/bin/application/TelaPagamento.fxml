@@ -2,14 +2,44 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-
 
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.TelaPagamentoController">
    <children>
+      <HBox prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <Label text="Valor do Pedido:">
+               <HBox.margin>
+                  <Insets left="40.0" top="50.0" />
+               </HBox.margin>
+            </Label>
+            <Label fx:id="lblValor" text="0">
+               <HBox.margin>
+                  <Insets left="20.0" top="50.0" />
+               </HBox.margin>
+            </Label>
+         </children>
+      </HBox>
+      <HBox prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <Label text="Forma de Pagamento:">
+               <HBox.margin>
+                  <Insets left="15.0" top="20.0" />
+               </HBox.margin>
+            </Label>
+            <TextField fx:id="txtFormaPagto">
+               <HBox.margin>
+                  <Insets left="15.0" top="18.0" />
+               </HBox.margin>
+            </TextField>
+         </children>
+      </HBox>
       <Button fx:id="btnFinalizar" mnemonicParsing="false" onAction="#finalizar" prefWidth="70.0" text="Finalizar" textAlignment="CENTER">
          <VBox.margin>
-            <Insets left="115.0" top="350.0" />
+            <Insets left="115.0" top="50.0" />
          </VBox.margin>
       </Button>
    </children>

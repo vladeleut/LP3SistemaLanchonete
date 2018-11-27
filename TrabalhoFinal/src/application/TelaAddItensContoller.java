@@ -145,6 +145,7 @@ public class TelaAddItensContoller {
 			System.out.println(e.getMessage());
 			JOptionPane.showMessageDialog(null, "É preciso selecionar um produto na tabela", "Erro", JOptionPane.ERROR_MESSAGE);
 		}
+		((Stage)btnCancelar.getScene().getWindow()).close();
 	}
 	
 }

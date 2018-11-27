@@ -8,7 +8,7 @@ public class ConnectionFactory {
 	
 	public Connection getConnection() {
 		try {
-			return DriverManager.getConnection("jdbc:mysql://localhost:3306/lp320182?useTimezone=true&serverTimezone=UTC", "root", "admin");
+			return DriverManager.getConnection("jdbc:mysql://localhost:3306/lp320182?useTimezone=true&serverTimezone=UTC&useSSL=false", "root", "admin");
 		}catch(SQLException e) {
 			System.out.println("SQLException: " + e.getMessage());
 			System.out.println("SQLState: " + e.getSQLState());

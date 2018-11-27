@@ -75,7 +75,7 @@ public class TelaPedidoController {
 	private TableView<Item> tblItensPedido;
 	
 	@FXML
-	public void pagamento(int NroPedido) throws IOException {//chama tela de pagamento 
+	public void pagamento(double valor) throws IOException {//chama tela de pagamento 
 		
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("TelaPagamento.fxml"));
 		Pane root = loader.load();
@@ -88,6 +88,7 @@ public class TelaPedidoController {
 		stage.setTitle("Forma de Pagamento");
 		stage.initModality(Modality.WINDOW_MODAL);
 		stage.initOwner( lblPreco.getScene().getWindow() );
+		controller.setInfosIniciais(valor);
 		stage.showAndWait();
 		stage.close();
 		//controller.setinfos
@@ -160,8 +161,14 @@ public class TelaPedidoController {
 	public void finalizaPedido() throws NumberFormatException, IOException {
 		////PRECISA DE MAIS FUNÇ~/OES
 		PedidoDAO pdao = new PedidoDAO();
-		pdao.atualizaStatus(2, Integer.valueOf(lblNroPedido.getText()));
-		pagamento(Integer.valueOf(lblNroPedido.getText()));
+		//pdao.atualizaStatus(2, Integer.valueOf(lblNroPedido.getText()));
+		//não pode atualizar o status aqui, vamos usar no pagamento.
+		double valor = 0;
+		for(Item i : tblItensPedido.getItems()) {
+			valor += i.getPreco();
+		}
+		pagamento(/*Integer.valueOf(lblNroPedido.getText()),*/valor);
+		((Stage)btnInserirItem.getScene().getWindow()).close();
 	}
 	
 	@FXML
@@ -197,6 +204,14 @@ public class TelaPedidoController {
 	public void atualizaTblItens() {
 		itens = FXCollections.observableArrayList(itdao.getLista());
 		tblItensPedido.setItems(itens);
+		
+		//atualizaValor:
+		double valor = 0;
+		for(Item i : tblItensPedido.getItems()) {
+			valor += i.getPreco();
+		}
+		String valorr = ""+valor;
+		lblPreco.setText(valorr);
 	}
 
 }

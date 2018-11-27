@@ -89,4 +89,17 @@ create table pedido(
     valor_total double
     );
     
+create table produto_pedido(
+	id_pedido int, #fk pedido
+    id_produto int, #fk produto
+    obs varchar(30)
+    );
+delete from pedido where situacao = 2;
+
+create table pagamentos(
+	id int primary key auto_increment, 
+    id_pedido int, #fk
+    valor double,
+    formaPagto varchar(40)
+    );
 
